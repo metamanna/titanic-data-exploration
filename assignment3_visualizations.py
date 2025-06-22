@@ -19,14 +19,17 @@ df.drop(columns='Cabin', inplace=True)
 df['Embarked'] = df['Embarked'].fillna(df['Embarked'].mode()[0])
 print(df.isnull().sum().sum())
 
-# 🔹 Extract Title from Name
+# Extract Title
 df['Title'] = df['Name'].str.extract(r'([A-Za-z]+)\.', expand=False)
 df['Title'] = df['Title'].replace(['Lady', 'Countess','Capt','Col','Don','Dr','Major','Rev','Sir','Jonkheer','Dona'], 'Rare')
 df['Title'] = df['Title'].replace(['Mlle', 'Ms'], 'Miss')
 df['Title'] = df['Title'].replace('Mme', 'Mrs')
 
-# 🔹 Create Family Size
+# Family Size
 df['FamilySize'] = df['SibSp'] + df['Parch'] + 1
+
+
+#plotting
 
 survival_counts = df['Survived'].value_counts()
 plt.pie(survival_counts, labels=['Did not survive', 'Survived'], autopct='%1.1f%%', startangle=90, colors=['#ff6f69', '#88d8b0'])
